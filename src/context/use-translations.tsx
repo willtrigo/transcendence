@@ -14,7 +14,7 @@
  */
 
 import { useContext } from "react"
-import { LangContext } from "./LangContext"
+import { LangContext } from "./lang-context"
 
 export function useTranslations(messages: Record<string, Record<string, string>>) {
   const { locale } = useContext(LangContext)

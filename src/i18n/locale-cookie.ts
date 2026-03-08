@@ -1,5 +1,5 @@
 // src/i18n/locale-cookie.ts
-import type { Locale } from "@/app/providers/LangContext"
+import type { Locale } from "@/app/context/LangContext"
 
 export const LOCALE_COOKIE_NAME = "NEXT_LOCALE"
 export const DEFAULT_LOCALE: Locale = "pt"

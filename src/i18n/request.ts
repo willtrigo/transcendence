@@ -1,5 +1,5 @@
 import { getRequestConfig } from "next-intl/server"
-import type { Locale } from "@/app/providers/LangContext"
+import type { Locale } from "@/app/context/LangContext"
 
 const DEFAULT_LOCALE: Locale = "pt"
 

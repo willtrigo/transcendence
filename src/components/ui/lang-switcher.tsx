@@ -19,7 +19,7 @@
 "use client"
 
 import { useContext, useEffect, useMemo, useRef, useState } from "react"
-import { LangContext, type Locale } from "@/app/providers/LangContext"
+import { LangContext, type Locale } from "../../context/lang-context"
 
 function GlobeIcon({ className = "" }: { className?: string }) {
   return (

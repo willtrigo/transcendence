@@ -1,23 +1,3 @@
-/**
- * Button
- *
- * Reusable and highly customizable button component built with
- * class-variance-authority (CVA) for scalable variant management.
- *
- * Features:
- * - Supports multiple visual variants (primary, secondary, outline,
- *   ghost, danger).
- * - Provides size options (sm, md, lg) and optional fullWidth mode.
- * - Includes built-in loading state with spinner indicator.
- * - Implements a ripple click effect for enhanced user interaction.
- * - Automatically disables interaction when loading or disabled.
- * - Extends native HTML button attributes for flexibility.
- *
- * Designed as a core component of the application's design system,
- * ensuring visual consistency, interactive feedback, and scalability
- * across all UI actions.
- */
-
 "use client"
 
 import * as React from "react"
@@ -28,7 +8,6 @@ const buttonVariants = cva(
   "relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-lg text-sm font-medium transition-all duration-200 focus:outline-none disabled:opacity-50 disabled:pointer-events-none",
   {
     variants: {
-      // Visual style variants
       variant: {
         primary:
           "bg-gradient-to-r from-[#FB923C] via-[#F97316] to-[#EA580C] text-white shadow-lg hover:shadow-2xl hover:-translate-y-0.5 hover:brightness-110 active:scale-[0.98]",
@@ -45,18 +24,15 @@ const buttonVariants = cva(
         danger:
           "bg-red-600 text-white shadow-lg hover:shadow-2xl hover:-translate-y-0.5 hover:brightness-110 active:scale-[0.98]",
       },
-      // Size variants
       size: {
         sm: "h-8 px-3",
         md: "h-10 px-5",
         lg: "h-12 px-6 text-base",
       },
-      // Full width option
       fullWidth: {
         true: "w-full",
       },
     },
-    // Default styles if none are provided
     defaultVariants: {
       variant: "primary",
       size: "md",
@@ -64,7 +40,6 @@ const buttonVariants = cva(
   }
 )
 
-// Combine normal button props + variant props + custom loading prop
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonVariants> & {
     loading?: boolean
@@ -78,12 +53,11 @@ export function Button({
   loading,
   children,
   disabled,
+  onClick,
   ...props
 }: ButtonProps) {
-  // Reference to access the real DOM button
   const buttonRef = React.useRef<HTMLButtonElement>(null)
 
-  // Creates ripple effect on click
   const createRipple = (event: React.MouseEvent<HTMLButtonElement>) => {
     const button = buttonRef.current
     if (!button) return
@@ -91,44 +65,36 @@ export function Button({
     const circle = document.createElement("span")
     const diameter = Math.max(button.clientWidth, button.clientHeight)
     const radius = diameter / 2
-    
-    // Set ripple size and position based on click
+    const rect = button.getBoundingClientRect()
+
     circle.style.width = circle.style.height = `${diameter}px`
-    circle.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`
-    circle.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`
+    circle.style.left = `${event.clientX - rect.left - radius}px`
+    circle.style.top = `${event.clientY - rect.top - radius}px`
     circle.classList.add("ripple")
 
-     // Remove existing ripple if present
     const ripple = button.getElementsByClassName("ripple")[0]
     if (ripple) {
       ripple.remove()
     }
 
-    // Append new ripple to button
     button.appendChild(circle)
   }
 
   return (
     <button
-    // When clicked, create ripple and call original onClick if exists
       ref={buttonRef}
       onClick={(e) => {
         createRipple(e)
-        props.onClick?.(e)
+        onClick?.(e)
       }}
-      // Apply variant styles + custom className
       className={cn(buttonVariants({ variant, size, fullWidth }), className)}
-      // Disable button if disabled or loading
       disabled={disabled || loading}
       {...props}
     >
-      {/* Show spinner if loading */}
       {loading && (
         <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
       )}
-      {/* Button content */}
       {children}
-
     </button>
   )
 }

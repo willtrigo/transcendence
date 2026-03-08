@@ -1,0 +1,101 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "sqlserver"
+  schemas  = ["auth", "core"]
+}
+
+model Permissions {
+  permission_id   BigInt            @id(map: "PK_Permissions") @default(autoincrement())
+  code            String            @unique(map: "UQ_Permissions_code") @db.NVarChar(120)
+  description     String?           @db.NVarChar(255)
+  RolePermissions RolePermissions[]
+
+  @@schema("auth")
+}
+
+model RolePermissions {
+  role_id       BigInt
+  permission_id BigInt
+  Permissions   Permissions @relation(fields: [permission_id], references: [permission_id], onUpdate: NoAction, map: "FK_RolePermissions_Permissions")
+  Roles         Roles       @relation(fields: [role_id], references: [role_id], onUpdate: NoAction, map: "FK_RolePermissions_Roles")
+
+  @@id([role_id, permission_id], map: "PK_RolePermissions")
+  @@schema("auth")
+}
+
+model Roles {
+  role_id         BigInt            @id(map: "PK_Roles") @default(autoincrement())
+  tenant_id       BigInt
+  name            String            @db.NVarChar(80)
+  description     String?           @db.NVarChar(255)
+  is_system       Boolean           @default(false, map: "DF_Roles_is_system")
+  created_at      DateTime          @default(dbgenerated("sysutcdatetime()"), map: "DF_Roles_created_at")
+  RolePermissions RolePermissions[]
+  Tenants         Tenants           @relation(fields: [tenant_id], references: [tenant_id], onUpdate: NoAction, map: "FK_Roles_Tenants")
+  UserRoles       UserRoles[]
+
+  @@unique([tenant_id, name], map: "UQ_Roles_tenant_name")
+  @@schema("auth")
+}
+
+model Tenants {
+  tenant_id   BigInt        @id(map: "PK_Tenants") @default(autoincrement())
+  nome        String        @db.NVarChar(200)
+  slug        String        @unique(map: "UQ_Tenants_slug") @db.NVarChar(80)
+  status      String        @default("active", map: "DF_Tenants_status") @db.VarChar(20)
+  created_at  DateTime      @default(dbgenerated("sysutcdatetime()"), map: "DF_Tenants_created_at")
+  updated_at  DateTime?
+  Roles       Roles[]
+  TenantUsers TenantUsers[]
+  UserRoles   UserRoles[]
+
+  @@schema("core")
+}
+
+model TenantUsers {
+  tenant_user_id BigInt    @id(map: "PK_TenantUsers") @default(autoincrement())
+  tenant_id      BigInt
+  user_id        BigInt
+  status         String    @default("active", map: "DF_TenantUsers_status") @db.VarChar(20)
+  joined_at      DateTime?
+  created_at     DateTime  @default(dbgenerated("sysutcdatetime()"), map: "DF_TenantUsers_created_at")
+  Tenants        Tenants   @relation(fields: [tenant_id], references: [tenant_id], onUpdate: NoAction, map: "FK_TenantUsers_Tenants")
+  Users          Users     @relation(fields: [user_id], references: [user_id], onUpdate: NoAction, map: "FK_TenantUsers_Users")
+
+  @@unique([tenant_id, user_id], map: "UQ_TenantUsers_tenant_user")
+  @@index([user_id], map: "IX_TenantUsers_user")
+  @@schema("auth")
+}
+
+model UserRoles {
+  tenant_id  BigInt
+  user_id    BigInt
+  role_id    BigInt
+  created_at DateTime @default(dbgenerated("sysutcdatetime()"), map: "DF_UserRoles_created_at")
+  Roles      Roles    @relation(fields: [role_id], references: [role_id], onUpdate: NoAction, map: "FK_UserRoles_Roles")
+  Tenants    Tenants  @relation(fields: [tenant_id], references: [tenant_id], onUpdate: NoAction, map: "FK_UserRoles_Tenants")
+  Users      Users    @relation(fields: [user_id], references: [user_id], onUpdate: NoAction, map: "FK_UserRoles_Users")
+
+  @@id([tenant_id, user_id, role_id], map: "PK_UserRoles")
+  @@index([user_id], map: "IX_UserRoles_user")
+  @@schema("auth")
+}
+
+model Users {
+  user_id       BigInt        @id(map: "PK_Users") @default(autoincrement())
+  email         String        @unique(map: "UQ_Users_email") @db.NVarChar(320)
+  password_hash String?       @db.NVarChar(255)
+  name          String?       @db.NVarChar(200)
+  status        String        @default("active", map: "DF_Users_status") @db.VarChar(20)
+  created_at    DateTime      @default(dbgenerated("sysutcdatetime()"), map: "DF_Users_created_at")
+  updated_at    DateTime?
+  last_login_at DateTime?
+  TenantUsers   TenantUsers[]
+  UserRoles     UserRoles[]
+
+  @@schema("auth")
+}

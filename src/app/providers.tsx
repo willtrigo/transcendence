@@ -1,38 +1,26 @@
-/**
- * Providers
- *
- * Centralized client-side provider wrapper for the application.
- *
- * Responsibilities:
- * - Provides authentication context via NextAuth's SessionProvider.
- * - Supplies global language state through LangProvider.
- * - Enables global notification handling via ToastProvider.
- *
- * This component prevents provider nesting inside layouts
- * and ensures all application routes have access to
- * authentication, internationalization, and UI feedback systems.
- */
-
 "use client"
 
-import { SessionProvider } from "next-auth/react"
 import { ReactNode } from "react"
-import { LangProvider } from "./providers/LangContext"
+import { SessionProvider } from "next-auth/react"
+import type { Session } from "next-auth"
+
+import { LangProvider, type Locale } from "../context/lang-context"
 import { ToastProvider } from "@/components/ui/toast"
 
 export function Providers({
   children,
   session,
+  initialLocale,
 }: {
   children: ReactNode
-  session?: any
+  session?: Session | null
+  initialLocale: Locale
 }) {
   return (
     <SessionProvider session={session}>
-      <LangProvider>
-      <ToastProvider>{children}</ToastProvider>
+      <LangProvider initialLocale={initialLocale}>
+        <ToastProvider>{children}</ToastProvider>
       </LangProvider>
     </SessionProvider>
   )
 }
-

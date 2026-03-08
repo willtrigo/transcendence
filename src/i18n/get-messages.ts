@@ -1,4 +1,4 @@
-import type { Locale } from "@/app/providers/LangContext"
+import type { Locale } from "@/app/context/LangContext"
 
 export async function getMessages(locale: Locale) {
   const [login, register, forgotPassword, resetPassword] = await Promise.all([

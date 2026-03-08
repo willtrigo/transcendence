@@ -1,25 +1,9 @@
-/**
- * LoginForm
- *
- * Client-side authentication form integrated with NextAuth.
- *
- * Features:
- * - Supports credential-based login using `signIn("credentials")`.
- * - Handles loading state and displays localized error messages.
- * - Redirects to "/dashboard" upon successful authentication.
- * - Includes third-party authentication via Google and GitHub providers.
- * - Uses next-intl for full internationalization support, including rich text formatting.
- * - Built with reusable design system components (Card, AuthInput, Button, SocialButton).
- *
- * Designed as the primary entry point for user authentication,
- * combining secure login handling, social providers, and consistent UI patterns.
- */
-
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { signIn } from "next-auth/react"
+import { getSession, signIn } from "next-auth/react"
 import { useTranslations } from "next-intl"
 
 import { Card } from "@/components/ui/card"
@@ -30,10 +14,10 @@ import { SocialButton } from "@/components/ui/social-button"
 function GoogleIcon() {
   return (
     <svg viewBox="0 0 24 24" width="18" height="18">
-      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.76h3.56c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.56-2.76c-.99.66-2.26 1.06-3.72 1.06-2.86 0-5.29-1.93-6.16-4.52H2.18v2.84A11 11 0 0 0 12 23z"/>
-      <path fill="#FBBC05" d="M5.84 14.12a6.6 6.6 0 0 1 0-4.24V7.04H2.18v2.84a11 11 0 0 0 0 4.24l3.66-2.84z"/>
-      <path fill="#EA4335" d="M12 4.58c1.62 0 3.07.56 4.21 1.64l3.15-3.15C17.45 1.04 14.97 0 12 0 7.7 0 3.86 2.48 2.18 6.04l3.66 2.84C6.71 6.51 9.14 4.58 12 4.58z"/>
+      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.76h3.56c2.08-1.92 3.28-4.74 3.28-8.09z" />
+      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.56-2.76c-.99.66-2.26 1.06-3.72 1.06-2.86 0-5.29-1.93-6.16-4.52H2.18v2.84A11 11 0 0 0 12 23z" />
+      <path fill="#FBBC05" d="M5.84 14.12a6.6 6.6 0 0 1 0-4.24V7.04H2.18v2.84a11 11 0 0 0 0 4.24l3.66-2.84z" />
+      <path fill="#EA4335" d="M12 4.58c1.62 0 3.07.56 4.21 1.64l3.15-3.15C17.45 1.04 14.97 0 12 0 7.7 0 3.86 2.48 2.18 6.04l3.66 2.84C6.71 6.51 9.14 4.58 12 4.58z" />
     </svg>
   )
 }
@@ -58,21 +42,56 @@ export function LoginForm() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
 
+  async function redirectAfterCredentialsLogin() {
+    const session = await getSession()
+
+    const needsTenantSelection = session?.user?.needsTenantSelection
+    const tenantId = session?.user?.tenantId
+
+    if (needsTenantSelection) {
+      router.push("/select-tenant")
+      return
+    }
+
+    if (!tenantId) {
+      router.push("/no-tenant")
+      return
+    }
+
+    router.push("/dashboard")
+  }
+
   async function handleLogin() {
-    setLoading(true)
-    setError("")
+    try {
+      setLoading(true)
+      setError("")
 
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-      callbackUrl: "/dashboard",
-    })
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      })
 
-    setLoading(false)
+      if (!result?.ok) {
+        setError(t("invalidCredentials"))
+        return
+      }
 
-    if (result?.ok) router.push("/dashboard")
-    else setError(t("invalidCredentials"))
+      await redirectAfterCredentialsLogin()
+    } catch (error) {
+      console.error("Login error:", error)
+      setError(t("invalidCredentials"))
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  function handleGoogleLogin() {
+    signIn("google", { callbackUrl: "/dashboard" })
+  }
+
+  function handleGithubLogin() {
+    signIn("github", { callbackUrl: "/dashboard" })
   }
 
   return (
@@ -89,7 +108,6 @@ export function LoginForm() {
       "
     >
       <div className="flex flex-col gap-6">
-
         <div className="text-center">
           <h1 className="text-2xl font-semibold text-white">
             {t("welcome")}
@@ -124,22 +142,27 @@ export function LoginForm() {
             />
 
             <div className="flex justify-end">
-              <a
+              <Link
                 href="/forgot-password"
                 style={{ color: "#F97316" }}
                 className="text-xs font-medium hover:opacity-80"
               >
                 {t("forgotPassword")}
-              </a>
+              </Link>
             </div>
           </div>
         </div>
 
-        {error && <p className="text-xs text-red-400 text-center">{error}</p>}
+        {error && (
+          <p className="text-xs text-center text-red-400">
+            {error}
+          </p>
+        )}
 
         <Button
           onClick={handleLogin}
           loading={loading}
+          disabled={loading}
           className="w-full h-10 text-sm"
         >
           {t("loginButton")}
@@ -148,7 +171,8 @@ export function LoginForm() {
         <div className="flex flex-col gap-2">
           <SocialButton
             variant="google"
-            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+            onClick={handleGoogleLogin}
+            disabled={loading}
           >
             <GoogleIcon />
             Google
@@ -156,7 +180,8 @@ export function LoginForm() {
 
           <SocialButton
             variant="github"
-            onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
+            onClick={handleGithubLogin}
+            disabled={loading}
           >
             <GitHubIcon />
             GitHub
@@ -165,11 +190,13 @@ export function LoginForm() {
 
         <div className="text-center text-xs text-gray-400">
           {t("registerPrompt")}{" "}
-          <a href="/register" className="text-purple-400 hover:text-purple-300">
+          <Link
+            href="/register"
+            className="text-purple-400 hover:text-purple-300"
+          >
             {t("registerLink")}
-          </a>
+          </Link>
         </div>
-
       </div>
     </Card>
   )

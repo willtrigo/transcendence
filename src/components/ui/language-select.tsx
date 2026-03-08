@@ -25,7 +25,7 @@
 "use client"
 
 import { useContext, useEffect, useMemo, useRef, useState } from "react"
-import { LangContext } from "@/app/providers/LangContext"
+import { LangContext } from "@/app/context/LangContext"
 
 type Locale = "pt" | "en" | "es"
 

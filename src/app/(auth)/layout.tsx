@@ -15,7 +15,7 @@
 
 import type { ReactNode } from "react"
 import { Background } from "@/components/layout/background"
-import { LangSwitcher } from "@/components/ui/LangSwitcher"
+import { LangSwitcher } from "@/components/ui/lang-switcher"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
