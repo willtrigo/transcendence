@@ -1,0 +1,68 @@
+{
+    "accessDeniedTitle": "Acesso negado",
+    "accessDeniedDescription": "Você não possui permissão para gerenciar usuários nesta empresa.",
+    "backToDashboard": "Voltar ao dashboard",
+  
+    "pageTitle": "Usuários da empresa",
+    "pageDescription": "Área administrativa para visualizar e gerenciar usuários da empresa ativa.",
+    "back": "Voltar",
+  
+    "addUserTitle": "Adicionar usuário existente",
+    "addUserDescription": "Informe o e-mail de um usuário já cadastrado no sistema e escolha o papel dele nesta empresa.",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "usuario@teste.com",
+    "roleLabel": "Papel",
+    "addButton": "Adicionar",
+  
+    "usersListTitle": "Lista de usuários",
+    "usersListDescription": "Usuários ativos vinculados ao tenant atual.",
+    "loadingUsers": "Carregando usuários...",
+    "noUsersFound": "Nenhum usuário foi encontrado para esta empresa.",
+  
+    "tableName": "Nome",
+    "tableEmail": "E-mail",
+    "tableRole": "Role",
+    "tableUserStatus": "Status usuário",
+    "tableRemove": "Remover",
+  
+    "noName": "Sem nome",
+    "removeButton": "Remover",
+  
+    "modalTitle": "Confirmar remoção",
+    "modalDescription": "Tem certeza que deseja remover este usuário da empresa ativa?",
+    "modalName": "Nome",
+    "modalEmail": "E-mail",
+    "modalCurrentRole": "Role atual",
+    "noRole": "Sem role",
+    "modalWarning": "Essa ação remove o vínculo do usuário com a empresa e também o papel associado nesse tenant.",
+    "cancel": "Cancelar",
+    "confirmRemoval": "Confirmar remoção",
+  
+    "toastAddErrorTitle": "Erro ao adicionar usuário",
+    "toastAddErrorMessage": "Não foi possível adicionar o usuário.",
+    "toastUserAddedTitle": "Usuário adicionado",
+    "toastUserAddedMessage": "Usuário adicionado à empresa com sucesso.",
+    "toastRoleUpdatedTitle": "Papel atualizado",
+    "toastRoleUpdatedMessageExisting": "O usuário já existia na empresa e o papel foi atualizado.",
+    "toastNoChangesTitle": "Nenhuma alteração",
+    "toastNoChangesMessageRole": "O usuário já pertence à empresa com esse papel.",
+    "toastSuccessTitle": "Sucesso",
+    "toastSuccessMessage": "Operação realizada com sucesso.",
+    "toastUnexpectedErrorTitle": "Erro inesperado",
+    "toastUnexpectedAddErrorMessage": "Ocorreu um erro inesperado ao adicionar o usuário.",
+  
+    "toastChangeRoleErrorTitle": "Erro ao alterar papel",
+    "toastChangeRoleErrorMessage": "Não foi possível alterar o papel.",
+    "toastNoChangesMessageCurrentRole": "O usuário já possui esse papel.",
+    "toastRoleUpdatedSuccessMessage": "Papel atualizado com sucesso.",
+    "toastUnexpectedChangeRoleErrorMessage": "Ocorreu um erro inesperado ao alterar o papel.",
+  
+    "toastRemoveErrorTitle": "Erro ao remover usuário",
+    "toastRemoveErrorMessage": "Não foi possível remover o usuário.",
+    "toastUserRemovedTitle": "Usuário removido",
+    "toastUserRemovedMessage": "Usuário removido da empresa com sucesso.",
+    "toastUnexpectedRemoveErrorMessage": "Ocorreu um erro inesperado ao remover o usuário.",
+  
+    "loadUsersHttpError": "Erro {status} ao carregar usuários.",
+    "loadUsersUnexpectedError": "Erro inesperado ao carregar usuários da empresa."
+  }

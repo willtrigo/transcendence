@@ -35,6 +35,16 @@ export async function updateUserName(params: {
   })
 }
 
+export async function updateUserEmail(params: {
+  userId: bigint
+  email: string
+}) {
+  return prisma.users.update({
+    where: { user_id: params.userId },
+    data: { email: params.email },
+  })
+}
+
 export async function findCredentialsUserByEmail(email: string) {
   return prisma.users.findUnique({
     where: { email },
@@ -84,5 +94,24 @@ export async function updateUserPasswordHash(params: {
       name: true,
       status: true,
     },
+  })
+}
+
+export async function getProfileByUserId(userId: bigint) {
+  return prisma.users.findUnique({
+    where: { user_id: userId },
+    select: {
+      user_id: true,
+      name: true,
+      email: true,
+      status: true,
+      password_hash: true,
+    },
+  })
+}
+
+export async function deleteUserById(userId: bigint) {
+  return prisma.users.delete({
+    where: { user_id: userId },
   })
 }

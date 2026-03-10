@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { useTranslations } from "next-intl"
 
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -28,6 +29,7 @@ type TenantUser = {
 type RoleOption = "Admin" | "User"
 
 export default function DashboardUsersPage() {
+  const t = useTranslations("dashboardUsers")
   const { push } = useToast()
 
   const [users, setUsers] = useState<TenantUser[]>([])
@@ -56,7 +58,7 @@ export default function DashboardUsersPage() {
       const data = await res.json().catch(() => null)
 
       if (!res.ok) {
-        setError(data?.error || `Erro ${res.status} ao carregar usuários.`)
+        setError(data?.error || t("loadUsersHttpError", { status: res.status }))
         setUsers([])
         return
       }
@@ -64,7 +66,7 @@ export default function DashboardUsersPage() {
       setUsers(Array.isArray(data?.users) ? data.users : [])
     } catch (err) {
       console.error(err)
-      setError("Erro inesperado ao carregar usuários da empresa.")
+      setError(t("loadUsersUnexpectedError"))
     } finally {
       setLoading(false)
     }
@@ -94,8 +96,8 @@ export default function DashboardUsersPage() {
 
       if (!res.ok) {
         push({
-          title: "Erro ao adicionar usuário",
-          message: data?.error || "Não foi possível adicionar o usuário.",
+          title: t("toastAddErrorTitle"),
+          message: data?.error || t("toastAddErrorMessage"),
           variant: "danger",
           durationMs: 4000,
         })
@@ -104,29 +106,29 @@ export default function DashboardUsersPage() {
 
       if (data?.action === "created-role") {
         push({
-          title: "Usuário adicionado",
-          message: "Usuário adicionado à empresa com sucesso.",
+          title: t("toastUserAddedTitle"),
+          message: t("toastUserAddedMessage"),
           variant: "success",
           durationMs: 3000,
         })
       } else if (data?.action === "replaced-role") {
         push({
-          title: "Papel atualizado",
-          message: "O usuário já existia na empresa e o papel foi atualizado.",
+          title: t("toastRoleUpdatedTitle"),
+          message: t("toastRoleUpdatedMessageExisting"),
           variant: "info",
           durationMs: 3500,
         })
       } else if (data?.action === "unchanged") {
         push({
-          title: "Nenhuma alteração",
-          message: "O usuário já pertence à empresa com esse papel.",
+          title: t("toastNoChangesTitle"),
+          message: t("toastNoChangesMessageRole"),
           variant: "neutral",
           durationMs: 3000,
         })
       } else {
         push({
-          title: "Sucesso",
-          message: "Operação realizada com sucesso.",
+          title: t("toastSuccessTitle"),
+          message: t("toastSuccessMessage"),
           variant: "success",
           durationMs: 3000,
         })
@@ -138,8 +140,8 @@ export default function DashboardUsersPage() {
     } catch (err) {
       console.error(err)
       push({
-        title: "Erro inesperado",
-        message: "Ocorreu um erro inesperado ao adicionar o usuário.",
+        title: t("toastUnexpectedErrorTitle"),
+        message: t("toastUnexpectedAddErrorMessage"),
         variant: "danger",
         durationMs: 4000,
       })
@@ -166,8 +168,8 @@ export default function DashboardUsersPage() {
 
       if (!res.ok) {
         push({
-          title: "Erro ao alterar papel",
-          message: data?.error || "Não foi possível alterar o papel.",
+          title: t("toastChangeRoleErrorTitle"),
+          message: data?.error || t("toastChangeRoleErrorMessage"),
           variant: "danger",
           durationMs: 4000,
         })
@@ -176,15 +178,15 @@ export default function DashboardUsersPage() {
 
       if (data?.action === "unchanged") {
         push({
-          title: "Nenhuma alteração",
-          message: "O usuário já possui esse papel.",
+          title: t("toastNoChangesTitle"),
+          message: t("toastNoChangesMessageCurrentRole"),
           variant: "neutral",
           durationMs: 3000,
         })
       } else {
         push({
-          title: "Papel atualizado",
-          message: "Papel atualizado com sucesso.",
+          title: t("toastRoleUpdatedTitle"),
+          message: t("toastRoleUpdatedSuccessMessage"),
           variant: "success",
           durationMs: 3000,
         })
@@ -194,8 +196,8 @@ export default function DashboardUsersPage() {
     } catch (err) {
       console.error(err)
       push({
-        title: "Erro inesperado",
-        message: "Ocorreu um erro inesperado ao alterar o papel.",
+        title: t("toastUnexpectedErrorTitle"),
+        message: t("toastUnexpectedChangeRoleErrorMessage"),
         variant: "danger",
         durationMs: 4000,
       })
@@ -218,8 +220,8 @@ export default function DashboardUsersPage() {
 
       if (!res.ok) {
         push({
-          title: "Erro ao remover usuário",
-          message: data?.error || "Não foi possível remover o usuário.",
+          title: t("toastRemoveErrorTitle"),
+          message: data?.error || t("toastRemoveErrorMessage"),
           variant: "danger",
           durationMs: 4000,
         })
@@ -227,8 +229,8 @@ export default function DashboardUsersPage() {
       }
 
       push({
-        title: "Usuário removido",
-        message: "Usuário removido da empresa com sucesso.",
+        title: t("toastUserRemovedTitle"),
+        message: t("toastUserRemovedMessage"),
         variant: "success",
         durationMs: 3000,
       })
@@ -238,8 +240,8 @@ export default function DashboardUsersPage() {
     } catch (err) {
       console.error(err)
       push({
-        title: "Erro inesperado",
-        message: "Ocorreu um erro inesperado ao remover o usuário.",
+        title: t("toastUnexpectedErrorTitle"),
+        message: t("toastUnexpectedRemoveErrorMessage"),
         variant: "danger",
         durationMs: 4000,
       })
@@ -263,14 +265,14 @@ export default function DashboardUsersPage() {
       fallback={
         <main className="min-h-screen bg-[#070B17] text-white flex items-center justify-center p-6">
           <Card padding="lg" className="w-full max-w-2xl space-y-4 text-center">
-            <h1 className="text-2xl font-semibold">Acesso negado</h1>
+            <h1 className="text-2xl font-semibold">{t("accessDeniedTitle")}</h1>
             <p className="text-sm text-gray-400">
-              Você não possui permissão para gerenciar usuários nesta empresa.
+              {t("accessDeniedDescription")}
             </p>
 
             <div className="flex justify-center">
               <Link href="/dashboard">
-                <Button variant="secondary">Voltar ao dashboard</Button>
+                <Button variant="secondary">{t("backToDashboard")}</Button>
               </Link>
             </div>
           </Card>
@@ -281,15 +283,15 @@ export default function DashboardUsersPage() {
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
-              <h1 className="text-3xl font-semibold">Usuários da empresa</h1>
+              <h1 className="text-3xl font-semibold">{t("pageTitle")}</h1>
               <p className="mt-2 text-sm text-gray-400">
-                Área administrativa para visualizar e gerenciar usuários da empresa ativa.
+                {t("pageDescription")}
               </p>
             </div>
 
             <div className="flex gap-3">
               <Link href="/dashboard">
-                <Button variant="outline">Voltar</Button>
+                <Button variant="outline">{t("back")}</Button>
               </Link>
             </div>
           </div>
@@ -297,24 +299,24 @@ export default function DashboardUsersPage() {
           <Card padding="lg" className="space-y-6">
             <div className="space-y-2">
               <h2 className="text-xl font-semibold text-white">
-                Adicionar usuário existente
+                {t("addUserTitle")}
               </h2>
               <p className="text-sm text-gray-400">
-                Informe o e-mail de um usuário já cadastrado no sistema e escolha o papel dele nesta empresa.
+                {t("addUserDescription")}
               </p>
             </div>
 
             <div className="grid gap-4 md:grid-cols-[1fr_220px_auto] md:items-end">
               <AuthInput
-                label="E-mail"
+                label={t("emailLabel")}
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="usuario@teste.com"
+                placeholder={t("emailPlaceholder")}
               />
 
               <div className="flex flex-col gap-2">
-                <label className="text-sm text-gray-300">Papel</label>
+                <label className="text-sm text-gray-300">{t("roleLabel")}</label>
                 <select
                   value={roleName}
                   onChange={(e) => setRoleName(e.target.value as RoleOption)}
@@ -334,7 +336,7 @@ export default function DashboardUsersPage() {
                 loading={submitting}
                 disabled={submitting || !email.trim()}
               >
-                Adicionar
+                {t("addButton")}
               </Button>
             </div>
           </Card>
@@ -342,16 +344,16 @@ export default function DashboardUsersPage() {
           <Card padding="lg" className="space-y-6">
             <div className="space-y-2">
               <h2 className="text-xl font-semibold text-white">
-                Lista de usuários
+                {t("usersListTitle")}
               </h2>
               <p className="text-sm text-gray-400">
-                Usuários ativos vinculados ao tenant atual.
+                {t("usersListDescription")}
               </p>
             </div>
 
             {loading && (
               <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-gray-400">
-                Carregando usuários...
+                {t("loadingUsers")}
               </div>
             )}
 
@@ -363,7 +365,7 @@ export default function DashboardUsersPage() {
 
             {!loading && !error && users.length === 0 && (
               <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-gray-400">
-                Nenhum usuário foi encontrado para esta empresa.
+                {t("noUsersFound")}
               </div>
             )}
 
@@ -372,11 +374,11 @@ export default function DashboardUsersPage() {
                 <table className="min-w-full text-sm">
                   <thead className="border-b border-white/10 bg-white/5 text-left text-gray-400">
                     <tr>
-                      <th className="px-4 py-3 font-medium">Nome</th>
-                      <th className="px-4 py-3 font-medium">E-mail</th>
-                      <th className="px-4 py-3 font-medium">Role</th>
-                      <th className="px-4 py-3 font-medium">Status usuário</th>
-                      <th className="px-4 py-3 font-medium">Remover</th>
+                      <th className="px-4 py-3 font-medium">{t("tableName")}</th>
+                      <th className="px-4 py-3 font-medium">{t("tableEmail")}</th>
+                      <th className="px-4 py-3 font-medium">{t("tableRole")}</th>
+                      <th className="px-4 py-3 font-medium">{t("tableUserStatus")}</th>
+                      <th className="px-4 py-3 font-medium">{t("tableRemove")}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -391,7 +393,7 @@ export default function DashboardUsersPage() {
                           className="border-b border-white/5 last:border-b-0"
                         >
                           <td className="px-4 py-3 text-white">
-                            {item.user.name || "Sem nome"}
+                            {item.user.name || t("noName")}
                           </td>
                           <td className="px-4 py-3 text-gray-300">
                             {item.user.email}
@@ -426,7 +428,7 @@ export default function DashboardUsersPage() {
                               disabled={isLoading || removingUser}
                               onClick={() => openRemoveModal(item)}
                             >
-                              Remover
+                              {t("removeButton")}
                             </Button>
                           </td>
                         </tr>
@@ -444,30 +446,30 @@ export default function DashboardUsersPage() {
             <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#0E1325] p-6 shadow-2xl">
               <div className="space-y-3">
                 <h2 className="text-xl font-semibold text-white">
-                  Confirmar remoção
+                  {t("modalTitle")}
                 </h2>
 
                 <p className="text-sm text-gray-300">
-                  Tem certeza que deseja remover este usuário da empresa ativa?
+                  {t("modalDescription")}
                 </p>
 
                 <div className="rounded-xl border border-white/10 bg-white/5 p-4 text-sm text-gray-300">
                   <p>
-                    <span className="font-medium text-white">Nome:</span>{" "}
-                    {userToRemove.user.name || "Sem nome"}
+                    <span className="font-medium text-white">{t("modalName")}:</span>{" "}
+                    {userToRemove.user.name || t("noName")}
                   </p>
                   <p className="mt-1">
-                    <span className="font-medium text-white">E-mail:</span>{" "}
+                    <span className="font-medium text-white">{t("modalEmail")}:</span>{" "}
                     {userToRemove.user.email}
                   </p>
                   <p className="mt-1">
-                    <span className="font-medium text-white">Role atual:</span>{" "}
-                    {userToRemove.role?.name || "Sem role"}
+                    <span className="font-medium text-white">{t("modalCurrentRole")}:</span>{" "}
+                    {userToRemove.role?.name || t("noRole")}
                   </p>
                 </div>
 
                 <p className="text-xs text-gray-400">
-                  Essa ação remove o vínculo do usuário com a empresa e também o papel associado nesse tenant.
+                  {t("modalWarning")}
                 </p>
               </div>
 
@@ -477,7 +479,7 @@ export default function DashboardUsersPage() {
                   onClick={closeRemoveModal}
                   disabled={removingUser}
                 >
-                  Cancelar
+                  {t("cancel")}
                 </Button>
 
                 <Button
@@ -486,7 +488,7 @@ export default function DashboardUsersPage() {
                   loading={removingUser}
                   disabled={removingUser}
                 >
-                  Confirmar remoção
+                  {t("confirmRemoval")}
                 </Button>
               </div>
             </div>

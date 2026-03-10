@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { signOut, useSession } from "next-auth/react"
+import { useTranslations } from "next-intl"
 
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { LangSwitcher } from "@/components/ui/lang-switcher"
 
 type Tenant = {
   tenant_id: string
@@ -17,6 +19,7 @@ type Tenant = {
 export default function SelectTenantPage() {
   const router = useRouter()
   const { status, update, data: session } = useSession()
+  const t = useTranslations("selectTenant")
 
   const [tenants, setTenants] = useState<Tenant[]>([])
   const [loading, setLoading] = useState(true)
@@ -27,6 +30,17 @@ export default function SelectTenantPage() {
   const currentTenantId = session?.user?.tenantId ?? null
 
   useEffect(() => {
+    if (status === "unauthenticated") {
+      router.replace("/login")
+      return
+    }
+
+    if (status !== "authenticated") {
+      return
+    }
+
+    let cancelled = false
+
     async function loadTenants() {
       try {
         setLoading(true)
@@ -37,34 +51,40 @@ export default function SelectTenantPage() {
           cache: "no-store",
         })
 
+        const data = await res.json().catch(() => null)
+
         if (!res.ok) {
-          throw new Error("Não foi possível carregar seus tenants.")
+          throw new Error(data?.error || "load_error")
         }
 
-        const data = await res.json()
         const loadedTenants = Array.isArray(data?.tenants) ? data.tenants : []
+
+        if (cancelled) return
 
         setTenants(loadedTenants)
 
         if (loadedTenants.length === 0) {
-          setError("Nenhum tenant disponível para esta conta.")
+          setError(t("noTenantsAvailable"))
         }
       } catch (err) {
         console.error(err)
-        setError("Erro ao carregar tenants.")
+
+        if (!cancelled) {
+          setError(t("loadGenericError"))
+        }
       } finally {
-        setLoading(false)
+        if (!cancelled) {
+          setLoading(false)
+        }
       }
     }
 
-    if (status === "authenticated") {
-      loadTenants()
-    }
+    loadTenants()
 
-    if (status === "unauthenticated") {
-      router.replace("/login")
+    return () => {
+      cancelled = true
     }
-  }, [status, router])
+  }, [status, router, t])
 
   async function handleSelectTenant(tenantId: string) {
     try {
@@ -79,23 +99,23 @@ export default function SelectTenantPage() {
         body: JSON.stringify({ tenantId }),
       })
 
-      const data = await res.json()
+      const data = await res.json().catch(() => null)
 
       if (!res.ok) {
-        throw new Error(data?.error || "Não foi possível selecionar o tenant.")
+        throw new Error(data?.error || t("selectTenantError"))
       }
 
       await update({
-        tenantId: data.tenantId,
-        tenantName: data.tenantName,
-        permissions: data.permissions,
-        roles: data.roles,
+        tenantId: data?.tenantId,
+        tenantName: data?.tenantName,
+        permissions: data?.permissions,
+        roles: data?.roles,
       })
 
       router.replace("/dashboard")
     } catch (err) {
       console.error(err)
-      setError("Erro ao selecionar tenant.")
+      setError(t("selectGenericError"))
     } finally {
       setSubmittingTenantId(null)
     }
@@ -113,11 +133,15 @@ export default function SelectTenantPage() {
 
   if (status === "loading" || loading) {
     return (
-      <main className="min-h-screen bg-[#070B17] text-white flex items-center justify-center p-6">
+      <main className="relative min-h-screen bg-[#070B17] text-white flex items-center justify-center p-6">
+        <div className="absolute top-6 right-6 z-20">
+          <LangSwitcher />
+        </div>
+
         <Card padding="lg" className="w-full max-w-xl space-y-4 text-center">
-          <h1 className="text-2xl font-semibold">Carregando</h1>
+          <h1 className="text-2xl font-semibold">{t("loadingTitle")}</h1>
           <p className="text-sm text-gray-400">
-            Estamos buscando os tenants disponíveis para você.
+            {t("loadingDescription")}
           </p>
         </Card>
       </main>
@@ -125,12 +149,16 @@ export default function SelectTenantPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#070B17] text-white flex items-center justify-center p-6">
+    <main className="relative min-h-screen bg-[#070B17] text-white flex items-center justify-center p-6">
+      <div className="absolute top-6 right-6 z-20">
+        <LangSwitcher />
+      </div>
+
       <Card padding="lg" className="w-full max-w-2xl space-y-6">
         <div className="space-y-2 text-center">
-          <h1 className="text-2xl font-semibold">Selecione seu workspace</h1>
+          <h1 className="text-2xl font-semibold">{t("title")}</h1>
           <p className="text-sm text-gray-400">
-            Escolha o tenant que deseja acessar nesta sessão.
+            {t("subtitle")}
           </p>
         </div>
 
@@ -155,28 +183,33 @@ export default function SelectTenantPage() {
                     <h2 className="text-base font-medium text-white">
                       {tenant.nome}
                     </h2>
-                    <p className="text-sm text-gray-400">Slug: {tenant.slug}</p>
-                    <p className="text-xs uppercase tracking-wide text-gray-500">
-                      Status: {tenant.status}
+
+                    <p className="text-sm text-gray-400">
+                      {t("slugLabel")}: {tenant.slug}
                     </p>
+
+                    <p className="text-xs uppercase tracking-wide text-gray-500">
+                      {t("statusLabel")}: {tenant.status}
+                    </p>
+
                     {isCurrent && (
                       <p className="text-xs font-medium text-emerald-300">
-                        Workspace atual
+                        {t("currentWorkspace")}
                       </p>
                     )}
                   </div>
 
-                  <div className="md:min-w-[200px]">
+                  <div className="md:min-w-[220px]">
                     <Button
                       className="w-full"
                       onClick={() => handleSelectTenant(tenant.tenant_id)}
                       disabled={Boolean(submittingTenantId) || signingOut}
                     >
                       {isSubmitting
-                        ? "Entrando..."
+                        ? t("entering")
                         : isCurrent
-                          ? "Entrar novamente"
-                          : "Trocar para este workspace"}
+                          ? t("enterAgain")
+                          : t("switchWorkspace")}
                     </Button>
                   </div>
                 </div>
@@ -187,7 +220,7 @@ export default function SelectTenantPage() {
 
         {!error && tenants.length === 0 && (
           <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-6 text-center text-sm text-gray-400">
-            Nenhum tenant foi encontrado para a sua conta.
+            {t("emptyState")}
           </div>
         )}
 
@@ -199,7 +232,7 @@ export default function SelectTenantPage() {
             loading={signingOut}
             className="min-w-[180px]"
           >
-            Sair
+            {t("signOut")}
           </Button>
         </div>
       </Card>

@@ -1,0 +1,84 @@
+{
+    "companyFallback": "Sem empresa ativa",
+    "roleFallback": "User",
+    "userFallback": "Usuária",
+    "statusFallback": "active",
+    "loadingProfile": "Carregando perfil...",
+  
+    "toastLoadErrorTitle": "Erro ao carregar perfil",
+    "toastLoadErrorMessage": "Não foi possível carregar seus dados.",
+    "toastUnexpectedErrorTitle": "Erro inesperado",
+    "toastUnexpectedLoadErrorMessage": "Ocorreu um erro inesperado ao carregar o perfil.",
+  
+    "toastUpdateNameErrorTitle": "Erro ao atualizar nome",
+    "toastUpdateNameErrorMessage": "Não foi possível atualizar seu nome.",
+    "toastProfileUpdatedTitle": "Perfil atualizado",
+    "toastNameUpdatedMessage": "Nome atualizado com sucesso.",
+    "toastUnexpectedUpdateNameMessage": "Ocorreu um erro inesperado ao atualizar o nome.",
+  
+    "toastUpdateEmailErrorTitle": "Erro ao atualizar e-mail",
+    "toastUpdateEmailErrorMessage": "Não foi possível atualizar seu e-mail.",
+    "toastEmailUpdatedTitle": "E-mail atualizado",
+    "toastEmailUpdatedMessage": "E-mail atualizado com sucesso.",
+    "toastUnexpectedUpdateEmailMessage": "Ocorreu um erro inesperado ao atualizar o e-mail.",
+  
+    "toastUpdatePasswordErrorTitle": "Erro ao atualizar senha",
+    "toastUpdatePasswordErrorMessage": "Não foi possível atualizar sua senha.",
+    "toastPasswordUpdatedTitle": "Senha atualizada",
+    "toastPasswordUpdatedMessage": "Senha atualizada com sucesso.",
+    "toastUnexpectedUpdatePasswordMessage": "Ocorreu um erro inesperado ao atualizar a senha.",
+  
+    "toastDeleteAccountErrorTitle": "Erro ao deletar conta",
+    "toastDeleteAccountErrorMessage": "Não foi possível deletar sua conta.",
+    "toastAccountRemovedTitle": "Conta removida",
+    "toastAccountRemovedMessage": "Sua conta foi removida com sucesso.",
+    "toastUnexpectedDeleteAccountMessage": "Ocorreu um erro inesperado ao deletar a conta.",
+  
+    "heroEyebrow": "Meu perfil",
+    "heroSubtitle": "Atualize seus dados pessoais, credenciais e informações da conta.",
+    "currentCompany": "Empresa atual",
+    "currentRole": "Papel atual",
+  
+    "accountInfoTitle": "Informações da conta",
+    "accountInfoSubtitle": "Atualize seu nome e e-mail com segurança.",
+  
+    "nameLabel": "Nome",
+    "namePlaceholder": "Seu nome",
+    "saveName": "Salvar nome",
+    "cancel": "Cancelar",
+    "noName": "Sem nome",
+  
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "seu@email.com",
+    "saveEmail": "Salvar e-mail",
+  
+    "userIdLabel": "ID do usuário",
+    "accountStatusLabel": "Status da conta",
+  
+    "securityTitle": "Segurança",
+    "securitySubtitle": "Atualize sua senha para manter sua conta protegida.",
+    "currentPassword": "Senha atual",
+    "newPassword": "Nova senha",
+    "confirmNewPassword": "Confirmar nova senha",
+    "updatePassword": "Atualizar senha",
+  
+    "dangerZoneTitle": "Zona de perigo",
+    "dangerZoneSubtitle": "A exclusão da conta é permanente e remove seus vínculos do sistema.",
+    "deleteAccountTitle": "Excluir minha conta",
+    "deleteAccountDescription": "Essa ação não poderá ser desfeita.",
+    "deleteProfile": "Deletar perfil",
+  
+    "emailModalTitle": "Confirmar alteração de e-mail",
+    "emailModalDescription": "Tem certeza que deseja alterar seu e-mail?",
+    "currentLabel": "Atual",
+    "newLabel": "Novo",
+    "confirmChange": "Confirmar alteração",
+  
+    "deleteModalTitle": "Confirmar exclusão",
+    "deleteModalDescription": "Tem certeza que deseja deletar seu perfil? Essa ação não poderá ser desfeita.",
+    "confirmDeletion": "Confirmar exclusão",
+  
+    "edit": "Editar",
+    
+    "backToDashboard": "Voltar ao dashboard"
+  }

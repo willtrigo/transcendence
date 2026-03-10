@@ -1,0 +1,68 @@
+{
+    "accessDeniedTitle": "Acceso denegado",
+    "accessDeniedDescription": "No tienes permiso para gestionar usuarios en esta empresa.",
+    "backToDashboard": "Volver al dashboard",
+  
+    "pageTitle": "Usuarios de la empresa",
+    "pageDescription": "Área administrativa para visualizar y gestionar usuarios de la empresa activa.",
+    "back": "Volver",
+  
+    "addUserTitle": "Agregar usuario existente",
+    "addUserDescription": "Ingresa el correo de un usuario ya registrado en el sistema y elige su rol en esta empresa.",
+    "emailLabel": "Correo",
+    "emailPlaceholder": "usuario@prueba.com",
+    "roleLabel": "Rol",
+    "addButton": "Agregar",
+  
+    "usersListTitle": "Lista de usuarios",
+    "usersListDescription": "Usuarios activos vinculados al tenant actual.",
+    "loadingUsers": "Cargando usuarios...",
+    "noUsersFound": "No se encontró ningún usuario para esta empresa.",
+  
+    "tableName": "Nombre",
+    "tableEmail": "Correo",
+    "tableRole": "Rol",
+    "tableUserStatus": "Estado del usuario",
+    "tableRemove": "Eliminar",
+  
+    "noName": "Sin nombre",
+    "removeButton": "Eliminar",
+  
+    "modalTitle": "Confirmar eliminación",
+    "modalDescription": "¿Seguro que deseas eliminar este usuario de la empresa activa?",
+    "modalName": "Nombre",
+    "modalEmail": "Correo",
+    "modalCurrentRole": "Rol actual",
+    "noRole": "Sin rol",
+    "modalWarning": "Esta acción elimina el vínculo del usuario con la empresa y también el rol asociado en este tenant.",
+    "cancel": "Cancelar",
+    "confirmRemoval": "Confirmar eliminación",
+  
+    "toastAddErrorTitle": "Error al agregar usuario",
+    "toastAddErrorMessage": "No fue posible agregar al usuario.",
+    "toastUserAddedTitle": "Usuario agregado",
+    "toastUserAddedMessage": "Usuario agregado a la empresa con éxito.",
+    "toastRoleUpdatedTitle": "Rol actualizado",
+    "toastRoleUpdatedMessageExisting": "El usuario ya existía en la empresa y el rol fue actualizado.",
+    "toastNoChangesTitle": "Sin cambios",
+    "toastNoChangesMessageRole": "El usuario ya pertenece a la empresa con ese rol.",
+    "toastSuccessTitle": "Éxito",
+    "toastSuccessMessage": "Operación realizada con éxito.",
+    "toastUnexpectedErrorTitle": "Error inesperado",
+    "toastUnexpectedAddErrorMessage": "Ocurrió un error inesperado al agregar al usuario.",
+  
+    "toastChangeRoleErrorTitle": "Error al cambiar rol",
+    "toastChangeRoleErrorMessage": "No fue posible cambiar el rol.",
+    "toastNoChangesMessageCurrentRole": "El usuario ya tiene ese rol.",
+    "toastRoleUpdatedSuccessMessage": "Rol actualizado con éxito.",
+    "toastUnexpectedChangeRoleErrorMessage": "Ocurrió un error inesperado al cambiar el rol.",
+  
+    "toastRemoveErrorTitle": "Error al eliminar usuario",
+    "toastRemoveErrorMessage": "No fue posible eliminar al usuario.",
+    "toastUserRemovedTitle": "Usuario eliminado",
+    "toastUserRemovedMessage": "Usuario eliminado de la empresa con éxito.",
+    "toastUnexpectedRemoveErrorMessage": "Ocurrió un error inesperado al eliminar al usuario.",
+  
+    "loadUsersHttpError": "Error {status} al cargar usuarios.",
+    "loadUsersUnexpectedError": "Error inesperado al cargar usuarios de la empresa."
+  }

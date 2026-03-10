@@ -1,0 +1,68 @@
+{
+    "accessDeniedTitle": "Access denied",
+    "accessDeniedDescription": "You do not have permission to manage users in this company.",
+    "backToDashboard": "Back to dashboard",
+  
+    "pageTitle": "Company users",
+    "pageDescription": "Administrative area to view and manage users from the active company.",
+    "back": "Back",
+  
+    "addUserTitle": "Add existing user",
+    "addUserDescription": "Enter the email of a user already registered in the system and choose their role in this company.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "user@test.com",
+    "roleLabel": "Role",
+    "addButton": "Add",
+  
+    "usersListTitle": "Users list",
+    "usersListDescription": "Active users linked to the current tenant.",
+    "loadingUsers": "Loading users...",
+    "noUsersFound": "No users were found for this company.",
+  
+    "tableName": "Name",
+    "tableEmail": "Email",
+    "tableRole": "Role",
+    "tableUserStatus": "User status",
+    "tableRemove": "Remove",
+  
+    "noName": "No name",
+    "removeButton": "Remove",
+  
+    "modalTitle": "Confirm removal",
+    "modalDescription": "Are you sure you want to remove this user from the active company?",
+    "modalName": "Name",
+    "modalEmail": "Email",
+    "modalCurrentRole": "Current role",
+    "noRole": "No role",
+    "modalWarning": "This action removes the user's link to the company and also the role associated with this tenant.",
+    "cancel": "Cancel",
+    "confirmRemoval": "Confirm removal",
+  
+    "toastAddErrorTitle": "Error adding user",
+    "toastAddErrorMessage": "Could not add the user.",
+    "toastUserAddedTitle": "User added",
+    "toastUserAddedMessage": "User successfully added to the company.",
+    "toastRoleUpdatedTitle": "Role updated",
+    "toastRoleUpdatedMessageExisting": "The user already existed in the company and the role was updated.",
+    "toastNoChangesTitle": "No changes",
+    "toastNoChangesMessageRole": "The user already belongs to the company with this role.",
+    "toastSuccessTitle": "Success",
+    "toastSuccessMessage": "Operation completed successfully.",
+    "toastUnexpectedErrorTitle": "Unexpected error",
+    "toastUnexpectedAddErrorMessage": "An unexpected error occurred while adding the user.",
+  
+    "toastChangeRoleErrorTitle": "Error changing role",
+    "toastChangeRoleErrorMessage": "Could not change the role.",
+    "toastNoChangesMessageCurrentRole": "The user already has this role.",
+    "toastRoleUpdatedSuccessMessage": "Role updated successfully.",
+    "toastUnexpectedChangeRoleErrorMessage": "An unexpected error occurred while changing the role.",
+  
+    "toastRemoveErrorTitle": "Error removing user",
+    "toastRemoveErrorMessage": "Could not remove the user.",
+    "toastUserRemovedTitle": "User removed",
+    "toastUserRemovedMessage": "User successfully removed from the company.",
+    "toastUnexpectedRemoveErrorMessage": "An unexpected error occurred while removing the user.",
+  
+    "loadUsersHttpError": "Error {status} while loading users.",
+    "loadUsersUnexpectedError": "Unexpected error while loading company users."
+  }

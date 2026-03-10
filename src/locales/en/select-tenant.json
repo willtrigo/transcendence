@@ -1,0 +1,19 @@
+{
+    "loadingTitle": "Loading",
+    "loadingDescription": "We are fetching the workspaces available to you.",
+    "title": "Select your workspace",
+    "subtitle": "Choose the tenant you want to access in this session.",
+    "slugLabel": "Slug",
+    "statusLabel": "Status",
+    "currentWorkspace": "Current workspace",
+    "entering": "Entering...",
+    "enterAgain": "Enter again",
+    "switchWorkspace": "Switch to this workspace",
+    "emptyState": "No tenant was found for your account.",
+    "signOut": "Sign out",
+    "loadTenantsError": "Could not load your tenants.",
+    "noTenantsAvailable": "No tenant available for this account.",
+    "loadGenericError": "Error loading tenants.",
+    "selectTenantError": "Could not select the tenant.",
+    "selectGenericError": "Error selecting tenant."
+  }

@@ -1,0 +1,19 @@
+{
+    "loadingTitle": "Carregando",
+    "loadingDescription": "Estamos buscando os workspaces disponíveis para você.",
+    "title": "Selecione seu workspace",
+    "subtitle": "Escolha o tenant que deseja acessar nesta sessão.",
+    "slugLabel": "Slug",
+    "statusLabel": "Status",
+    "currentWorkspace": "Workspace atual",
+    "entering": "Entrando...",
+    "enterAgain": "Entrar novamente",
+    "switchWorkspace": "Trocar para este workspace",
+    "emptyState": "Nenhum tenant foi encontrado para a sua conta.",
+    "signOut": "Sair",
+    "loadTenantsError": "Não foi possível carregar seus tenants.",
+    "noTenantsAvailable": "Nenhum tenant disponível para esta conta.",
+    "loadGenericError": "Erro ao carregar tenants.",
+    "selectTenantError": "Não foi possível selecionar o tenant.",
+    "selectGenericError": "Erro ao selecionar tenant."
+  }

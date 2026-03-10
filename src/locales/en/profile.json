@@ -1,0 +1,83 @@
+{
+    "companyFallback": "No active company",
+    "roleFallback": "User",
+    "userFallback": "User",
+    "statusFallback": "active",
+    "loadingProfile": "Loading profile...",
+  
+    "toastLoadErrorTitle": "Error loading profile",
+    "toastLoadErrorMessage": "Could not load your data.",
+    "toastUnexpectedErrorTitle": "Unexpected error",
+    "toastUnexpectedLoadErrorMessage": "An unexpected error occurred while loading the profile.",
+  
+    "toastUpdateNameErrorTitle": "Error updating name",
+    "toastUpdateNameErrorMessage": "Could not update your name.",
+    "toastProfileUpdatedTitle": "Profile updated",
+    "toastNameUpdatedMessage": "Name updated successfully.",
+    "toastUnexpectedUpdateNameMessage": "An unexpected error occurred while updating the name.",
+  
+    "toastUpdateEmailErrorTitle": "Error updating email",
+    "toastUpdateEmailErrorMessage": "Could not update your email.",
+    "toastEmailUpdatedTitle": "Email updated",
+    "toastEmailUpdatedMessage": "Email updated successfully.",
+    "toastUnexpectedUpdateEmailMessage": "An unexpected error occurred while updating the email.",
+  
+    "toastUpdatePasswordErrorTitle": "Error updating password",
+    "toastUpdatePasswordErrorMessage": "Could not update your password.",
+    "toastPasswordUpdatedTitle": "Password updated",
+    "toastPasswordUpdatedMessage": "Password updated successfully.",
+    "toastUnexpectedUpdatePasswordMessage": "An unexpected error occurred while updating the password.",
+  
+    "toastDeleteAccountErrorTitle": "Error deleting account",
+    "toastDeleteAccountErrorMessage": "Could not delete your account.",
+    "toastAccountRemovedTitle": "Account removed",
+    "toastAccountRemovedMessage": "Your account was removed successfully.",
+    "toastUnexpectedDeleteAccountMessage": "An unexpected error occurred while deleting the account.",
+  
+    "heroEyebrow": "My profile",
+    "heroSubtitle": "Update your personal data, credentials, and account information.",
+    "currentCompany": "Current company",
+    "currentRole": "Current role",
+  
+    "accountInfoTitle": "Account information",
+    "accountInfoSubtitle": "Update your name and email securely.",
+  
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "saveName": "Save name",
+    "cancel": "Cancel",
+    "noName": "No name",
+  
+    "emailLabel": "Email",
+    "emailPlaceholder": "your@email.com",
+    "saveEmail": "Save email",
+  
+    "userIdLabel": "User ID",
+    "accountStatusLabel": "Account status",
+  
+    "securityTitle": "Security",
+    "securitySubtitle": "Update your password to keep your account protected.",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "updatePassword": "Update password",
+  
+    "dangerZoneTitle": "Danger zone",
+    "dangerZoneSubtitle": "Account deletion is permanent and removes your links from the system.",
+    "deleteAccountTitle": "Delete my account",
+    "deleteAccountDescription": "This action cannot be undone.",
+    "deleteProfile": "Delete profile",
+  
+    "emailModalTitle": "Confirm email change",
+    "emailModalDescription": "Are you sure you want to change your email?",
+    "currentLabel": "Current",
+    "newLabel": "New",
+    "confirmChange": "Confirm change",
+  
+    "deleteModalTitle": "Confirm deletion",
+    "deleteModalDescription": "Are you sure you want to delete your profile? This action cannot be undone.",
+    "confirmDeletion": "Confirm deletion",
+  
+    "edit": "Edit", 
+    "backToDashboard": "Back to dashboard"
+  }
