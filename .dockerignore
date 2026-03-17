@@ -1,0 +1,31 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Next.js artifacts
+.next
+out
+
+# Environment files — never bake secrets into the image
+.env
+.env.*
+!.env.example
+
+# Version control
+.git
+.gitignore
+
+# Editor / OS
+.DS_Store
+.vscode
+*.log
+
+# Tests
+coverage
+__tests__
+*.test.ts
+*.spec.ts
+
+# Docker (don't recurse into itself)
+docker-compose*
+.dockerignore

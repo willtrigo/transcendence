@@ -1,14 +1,14 @@
-// next.config.ts
 import createNextIntlPlugin from "next-intl/plugin"
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts")
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
+  // Required for the production Docker stage (docker/app/Dockerfile)
+  output: "standalone",
+
   experimental: {},
 
-  // Fix workspace root inference warning (optional but recommended)
-  // This should point to your project root (where this next.config.ts is).
   turbopack: {
     root: __dirname,
   },
